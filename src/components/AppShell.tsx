@@ -1,6 +1,7 @@
 import { Link, Outlet, useLocation } from "@tanstack/react-router";
 import { Shield, Briefcase, Wallet, Sparkles, Megaphone, Home } from "lucide-react";
 import { cn } from "@/lib/utils";
+import logo from "@/assets/logo.png";
 
 const nav = [
   { to: "/", label: "Home", icon: Home },
@@ -20,9 +21,7 @@ export function AppShell() {
       <header className="sticky top-0 z-40 backdrop-blur-xl bg-background/70 border-b border-border/60">
         <div className="mx-auto max-w-6xl px-4 h-16 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2">
-            <div className="h-9 w-9 rounded-xl bg-gradient-primary grid place-items-center shadow-soft">
-              <Shield className="h-5 w-5 text-primary-foreground" />
-            </div>
+            <img src={logo} alt="SheShield logo" width={36} height={36} className="h-9 w-9 rounded-xl shadow-soft" />
             <div className="leading-tight">
               <div className="font-display text-lg font-semibold">SheShield</div>
               <div className="text-[10px] uppercase tracking-widest text-muted-foreground">Empower · Protect · Grow</div>
