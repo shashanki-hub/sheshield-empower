@@ -9,50 +9,178 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
+import { Route as LayoutRouteImport } from './routes/_layout'
+import { Route as LayoutIndexRouteImport } from './routes/_layout.index'
+import { Route as LayoutSafetyRouteImport } from './routes/_layout.safety'
+import { Route as LayoutFinanceRouteImport } from './routes/_layout.finance'
+import { Route as LayoutCreatorRouteImport } from './routes/_layout.creator'
+import { Route as LayoutCareersRouteImport } from './routes/_layout.careers'
+import { Route as LayoutAssistantRouteImport } from './routes/_layout.assistant'
 
-const IndexRoute = IndexRouteImport.update({
+const LayoutRoute = LayoutRouteImport.update({
+  id: '/_layout',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LayoutIndexRoute = LayoutIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => LayoutRoute,
+} as any)
+const LayoutSafetyRoute = LayoutSafetyRouteImport.update({
+  id: '/safety',
+  path: '/safety',
+  getParentRoute: () => LayoutRoute,
+} as any)
+const LayoutFinanceRoute = LayoutFinanceRouteImport.update({
+  id: '/finance',
+  path: '/finance',
+  getParentRoute: () => LayoutRoute,
+} as any)
+const LayoutCreatorRoute = LayoutCreatorRouteImport.update({
+  id: '/creator',
+  path: '/creator',
+  getParentRoute: () => LayoutRoute,
+} as any)
+const LayoutCareersRoute = LayoutCareersRouteImport.update({
+  id: '/careers',
+  path: '/careers',
+  getParentRoute: () => LayoutRoute,
+} as any)
+const LayoutAssistantRoute = LayoutAssistantRouteImport.update({
+  id: '/assistant',
+  path: '/assistant',
+  getParentRoute: () => LayoutRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
+  '/': typeof LayoutIndexRoute
+  '/assistant': typeof LayoutAssistantRoute
+  '/careers': typeof LayoutCareersRoute
+  '/creator': typeof LayoutCreatorRoute
+  '/finance': typeof LayoutFinanceRoute
+  '/safety': typeof LayoutSafetyRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
+  '/assistant': typeof LayoutAssistantRoute
+  '/careers': typeof LayoutCareersRoute
+  '/creator': typeof LayoutCreatorRoute
+  '/finance': typeof LayoutFinanceRoute
+  '/safety': typeof LayoutSafetyRoute
+  '/': typeof LayoutIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
+  '/_layout': typeof LayoutRouteWithChildren
+  '/_layout/assistant': typeof LayoutAssistantRoute
+  '/_layout/careers': typeof LayoutCareersRoute
+  '/_layout/creator': typeof LayoutCreatorRoute
+  '/_layout/finance': typeof LayoutFinanceRoute
+  '/_layout/safety': typeof LayoutSafetyRoute
+  '/_layout/': typeof LayoutIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/assistant'
+    | '/careers'
+    | '/creator'
+    | '/finance'
+    | '/safety'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/assistant' | '/careers' | '/creator' | '/finance' | '/safety' | '/'
+  id:
+    | '__root__'
+    | '/_layout'
+    | '/_layout/assistant'
+    | '/_layout/careers'
+    | '/_layout/creator'
+    | '/_layout/finance'
+    | '/_layout/safety'
+    | '/_layout/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
+  LayoutRoute: typeof LayoutRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
+    '/_layout': {
+      id: '/_layout'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof LayoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_layout/': {
+      id: '/_layout/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof LayoutIndexRouteImport
+      parentRoute: typeof LayoutRoute
+    }
+    '/_layout/safety': {
+      id: '/_layout/safety'
+      path: '/safety'
+      fullPath: '/safety'
+      preLoaderRoute: typeof LayoutSafetyRouteImport
+      parentRoute: typeof LayoutRoute
+    }
+    '/_layout/finance': {
+      id: '/_layout/finance'
+      path: '/finance'
+      fullPath: '/finance'
+      preLoaderRoute: typeof LayoutFinanceRouteImport
+      parentRoute: typeof LayoutRoute
+    }
+    '/_layout/creator': {
+      id: '/_layout/creator'
+      path: '/creator'
+      fullPath: '/creator'
+      preLoaderRoute: typeof LayoutCreatorRouteImport
+      parentRoute: typeof LayoutRoute
+    }
+    '/_layout/careers': {
+      id: '/_layout/careers'
+      path: '/careers'
+      fullPath: '/careers'
+      preLoaderRoute: typeof LayoutCareersRouteImport
+      parentRoute: typeof LayoutRoute
+    }
+    '/_layout/assistant': {
+      id: '/_layout/assistant'
+      path: '/assistant'
+      fullPath: '/assistant'
+      preLoaderRoute: typeof LayoutAssistantRouteImport
+      parentRoute: typeof LayoutRoute
     }
   }
 }
 
+interface LayoutRouteChildren {
+  LayoutAssistantRoute: typeof LayoutAssistantRoute
+  LayoutCareersRoute: typeof LayoutCareersRoute
+  LayoutCreatorRoute: typeof LayoutCreatorRoute
+  LayoutFinanceRoute: typeof LayoutFinanceRoute
+  LayoutSafetyRoute: typeof LayoutSafetyRoute
+  LayoutIndexRoute: typeof LayoutIndexRoute
+}
+
+const LayoutRouteChildren: LayoutRouteChildren = {
+  LayoutAssistantRoute: LayoutAssistantRoute,
+  LayoutCareersRoute: LayoutCareersRoute,
+  LayoutCreatorRoute: LayoutCreatorRoute,
+  LayoutFinanceRoute: LayoutFinanceRoute,
+  LayoutSafetyRoute: LayoutSafetyRoute,
+  LayoutIndexRoute: LayoutIndexRoute,
+}
+
+const LayoutRouteWithChildren =
+  LayoutRoute._addFileChildren(LayoutRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
+  LayoutRoute: LayoutRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
