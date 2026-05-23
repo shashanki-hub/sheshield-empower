@@ -18,6 +18,10 @@ A women safety and empowerment platform built to provide emergency support, safe
 (https://she-shield-empower.lovable.app)
 ## Installation
 
+## 📸 Preview
+![Project Preview](./SCREENSHOT-demo.png)
+
+
 ```bash
 npm install
 npm run dev
