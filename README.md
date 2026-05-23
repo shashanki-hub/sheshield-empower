@@ -15,8 +15,7 @@ A women safety and empowerment platform built to provide emergency support, safe
 - Tailwind CSS
 
 ## Live Demo
-https://sheshield-empower.vercel.app
-
+(https://she-shield-empower.lovable.app)
 ## Installation
 
 ```bash
